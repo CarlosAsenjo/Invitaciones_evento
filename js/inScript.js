@@ -10,13 +10,26 @@ document.getElementById("submit").addEventListener("click", function() {
 
     if (names(name)) {
         create(name);
+
     } else {
         alert("No has introducido ningun invitado o Invitado existente");
     }
 });
 
+
+/********* Uppear PRIMERA LETRA ***********/
+function upperFirst(name) {
+    var mayus, minus;
+    mayus = name.charAt(0).toUpperCase();
+    minus = name.substr(1).toLowerCase();
+    name = mayus.concat(minus);
+    return name;
+}
+
+
 /********* COMPRUEBA INVITADO EXISTENTE EN ARRAY ***********/
 function names(n) {
+
     for (let i = 0; i < guest.length; i++) {
         console.log("n: " + n);
         if (n == guest[i]) {
@@ -36,7 +49,6 @@ function changeName(n1, n2) {
     for (let i = 0; i < guest.length; i++) {
         console.log("n1: " + n1 + " n2: " + n2);
         if (n1 == guest[i]) {
-
             guest.splice(i, 0, n2);
             console.log("del guest: " + guest[i]);
             return true;
@@ -47,6 +59,7 @@ function changeName(n1, n2) {
 
 /********* ELIMINA INVITADO DEL ARRAY ***********/
 function delGuest(name) {
+
     for (let i = 0; i < guest.length; i++) {
         if (name == guest[i]) {
             guest.splice(i, 1);
@@ -75,7 +88,6 @@ function create(name) {
     newLi.appendChild(newInput);
     newInput.style.display = "none";
 
-
     // LABEL / INPUT CHECKBOX
     var newLabel = document.createElement("label");
     var newCheck = document.createElement("input");
@@ -94,20 +106,17 @@ function create(name) {
     newLabel.appendChild(newCheck);
     newLi.appendChild(newLabel);
 
-
     /********* BOTON EDITAR ***********/ //TRABAJAR EN ESTA FUNCION
     var newEdit = document.createElement("button");
     newEdit.textContent = "edit";
 
     newEdit.onclick = function() {
-
         console.log("entra en editar")
         newSpan.style.display = "none";
         newInput.style.display = "block"
         newEdit.textContent = "Ok!"
         newEdit.style.backgroundColor = "rgb(102, 237, 138)";
-
-        //confirmar
+        //CONFIRMAR CAMBIO
         if (newEdit.onclick) {
             var nameInput = upperFirst(newInput.value);
             console.log("valor input: " + nameInput)
@@ -118,34 +127,34 @@ function create(name) {
 
             } else {
                 //Reemplazar nombre span en el array por el de input
-                changeName(newSpan.textContent, nameInput);
+                delGuest(newSpan.textContent);
+                guest.push(nameInput);
                 console.log(newSpan.textContent + " " + nameInput);
                 newInput.style.display = "none";
                 newSpan.style.display = "block";
                 newSpan.textContent = nameInput;
                 newEdit.style.backgroundColor = "rgba(88, 183, 205, .5)";
                 newEdit.textContent = "edit";
-
                 console.log(guest);
             }
         }
     }
     newLi.appendChild(newEdit);
 
-
     /********* BOTON ELIMINAR ***********/
     var newRemove = document.createElement("button");
     newRemove.textContent = "remove";
+
     newRemove.onclick = function() {
         if (newRemove.onclick && newRemove.textContent == "CONFIRM") {
             newRemove.parentElement.remove();
             delGuest(newSpan.textContent);
         }
-
         newRemove.style.backgroundColor = "red"
         newRemove.textContent = "CONFIRM";
         let newCross = document.createElement("button");
         newCross.textContent = "x";
+
         newCross.onclick = function() {
             newRemove.style.backgroundColor = "rgba(88, 183, 205, .5)";
             newRemove.textContent = "remove";
@@ -154,35 +163,7 @@ function create(name) {
         newLi.appendChild(newCross);
     }
     newLi.appendChild(newRemove);
-
     document.getElementById("invitedList").appendChild(newLi);
-}
-
-
-/********* EDITAR NOMBRES ***********/
-
-function replaceNames(str) {
-
-    for (let i = 0; i < guest.length; i++) {
-        if (guest[i] == spanName) {
-
-        }
-
-    }
-}
-
-
-/******** VERIFICA USUARIOS DUPLICADOS ***********/
-/*********** REGISTRA AL USUARIO **************/
-
-
-/********* Uppear PRIMERA LETRA ***********/
-function upperFirst(name) {
-    var mayus, minus;
-    mayus = name.charAt(0).toUpperCase();
-    minus = name.substr(1).toLowerCase();
-    name = mayus.concat(minus);
-    return name;
 }
 
 /* cuando creas un nuevo boton, tiene que tener un padre
