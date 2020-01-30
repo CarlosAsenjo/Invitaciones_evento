@@ -1,51 +1,104 @@
-var name;
-var guest = [];
+var guest = ["", ];
+
+/********* BOTON ENVIAR NOMBRE ***********/
 
 document.getElementById("submit").addEventListener("click", function() {
     event.preventDefault();
-
+  
     console.log("event");
-    name = document.getElementById("name").value;
-    upperFirst();
-    register();
-
+    var name = document.getElementById("name").value;
+    name = upperFirst(name);
+    if (names(name)) {
+        create(name);
+    } else {
+        alert("No has introducido ningun invitado o Invitado existente");
+    }
 });
+
+
+function names(n) {
+    for (let i = 0; i < guest.length; i++) {
+        console.log("n: " + n);
+        if (n == guest[i]){
+            console.log("false");
+            return false
+        }
+    }
+    return true
+}
+
+function delGuest(name) {
+    for (let i = 0; i < guest.length; i++) {
+        if (name == guest[i]){
+            guest.splice(i, 1);
+        }
+    }
+}
 
 /********* CREA LA INVITACION ***********/
 
-function create() {
+function create(name) {
 
     var newLi = document.createElement("li");
+
+    
+    // SPAN
     var newSpan = document.createElement("span");
-    var newLabel = document.createElement("label");
-    var newCheck = document.createElement("input");
-    var newEdit = document.createElement("button");
-    var newRemove = document.createElement("button");
-
-    /*var newCopy = document.getElementById("invitedList").children.item(0)
-    console.log(newCopy)*/
-
+    guest.push(name);
+    console.log(guest);
+    newSpan.textContent = name;
     newLi.appendChild(newSpan);
 
-    newSpan.textContent = name;
+
+    /********* CHECKVOX ***********/
+    var newLabel = document.createElement("label");
+    var newCheck = document.createElement("input");
     newCheck.type = "checkbox";
+    newLabel.textContent = "Confirmed";
     newCheck.onclick = function () {
         if (newCheck.checked) {
+            //console.log("cambia la clase")
             newLi.className = "responded";
+
         }else{
+            //console.log("no cambia la clase")
             newLi.className = "";
         }
     }
-    newLabel.textContent = "Confirmed";
-    newEdit.textContent = "edit";
-    newRemove.textContent = "remove";
-
-    newLi.appendChild(newLabel);
-    newLi.appendChild(newEdit);
-    newLi.appendChild(newRemove);
     newLabel.appendChild(newCheck);
+    newLi.appendChild(newLabel);
+
+    /********* BOTON EDITAR ***********/
+    
+    var newEdit = document.createElement("button");
+    newEdit.textContent = "edit";
+    newEdit.onclick = function () {
+        
+    }
+    newLi.appendChild(newEdit);
 
 
+    /********* BOTON ELIMINAR ***********/
+    var newRemove = document.createElement("button");
+    newRemove.textContent = "remove";
+    newRemove.onclick = function () {
+        if (newRemove.onclick && newRemove.textContent == "CONFIRM")
+        {
+            newRemove.parentElement.remove();       
+        }
+        
+        newRemove.style.backgroundColor = "red"
+        newRemove.textContent = "CONFIRM";
+        let newCross = document.createElement("button");
+        newCross.textContent = "x";
+        newCross.onclick = function () {
+            newRemove.style.backgroundColor = "rgba(88, 183, 205, .5)";
+            newRemove.textContent = "remove";
+            newCross.style.display = "none";
+        }
+        newLi.appendChild(newCross);
+    }
+    newLi.appendChild(newRemove);
 
     document.getElementById("invitedList").appendChild(newLi);
 }
@@ -54,43 +107,15 @@ function create() {
 /******** VERIFICA USUARIOS DUPLICADOS ***********/
 /*********** REGISTRA AL USUARIO **************/
 
-function register() {
 
-    if (name == "") {
-        alert("No has introducido ningun invitado");
-        return;
+/********* Uppear LA PRIMERA LETRA ***********/
 
-    } else {
-        for (let i = 0; i < guest.length; i++) {
-
-            if (name == guest[i]) {
-                alert("Invitado existente");
-                return;
-            }
-        }
-    }
-    console.log("añade invitado al array");
-    guest.push(name);
-    for (let i = 0; i < guest.length; i++) {
-        console.log(guest[i]);
-    }
-    console.log("create");
-    create();
-}
-
-
-/********* Uppear LA PRIMERA LETRA***********/
-
-function upperFirst(){
-
+function upperFirst(name){
     var mayus, minus;
     mayus = name.charAt(0).toUpperCase();
-    console.log("mayus " + mayus)
     minus = name.substr(1).toLowerCase();
-    console.log("minus " + minus)
-
     name = mayus.concat(minus);
-    console.log("nameCap " + name)
+    return name;
 }
 
 /* cuando creas un nuevo boton, tiene que tener un padre
