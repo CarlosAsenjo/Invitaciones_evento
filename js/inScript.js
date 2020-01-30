@@ -6,7 +6,7 @@ document.getElementById("submit").addEventListener("click", function() {
 
     console.log("event");
     name = document.getElementById("name").value;
-    name.capitalize();
+    upperFirst();
     register();
 
 });
@@ -22,10 +22,20 @@ function create() {
     var newEdit = document.createElement("button");
     var newRemove = document.createElement("button");
 
+    /*var newCopy = document.getElementById("invitedList").children.item(0)
+    console.log(newCopy)*/
+
     newLi.appendChild(newSpan);
 
-    newSpan.textContent = document.getElementById("name").value;
+    newSpan.textContent = name;
     newCheck.type = "checkbox";
+    newCheck.onclick = function () {
+        if (newCheck.checked) {
+            newLi.className = "responded";
+        }else{
+            newLi.className = "";
+        }
+    }
     newLabel.textContent = "Confirmed";
     newEdit.textContent = "edit";
     newRemove.textContent = "remove";
@@ -34,6 +44,8 @@ function create() {
     newLi.appendChild(newEdit);
     newLi.appendChild(newRemove);
     newLabel.appendChild(newCheck);
+
+
 
     document.getElementById("invitedList").appendChild(newLi);
 }
@@ -66,9 +78,20 @@ function register() {
     create();
 }
 
-//String.prototype.capitalize = function() {
-//  return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2) { return p1 + p2.toUpperCase(); });
-//};
+
+/********* Uppear LA PRIMERA LETRA***********/
+
+function upperFirst(){
+
+    var mayus, minus;
+    mayus = name.charAt(0).toUpperCase();
+    console.log("mayus " + mayus)
+    minus = name.substr(1).toLowerCase();
+    console.log("minus " + minus)
+
+    name = mayus.concat(minus);
+    console.log("nameCap " + name)
+}
 
 /* cuando creas un nuevo boton, tiene que tener un padre
     y tienes que referirte a ese padre cuando metas el remove.
