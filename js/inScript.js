@@ -73,6 +73,7 @@ function create(name) {
 
     // Li
     var newLi = document.createElement("li");
+    newLi.className = "responded";
 
     // SPAN
     var newSpan = document.createElement("span");
@@ -174,3 +175,30 @@ function create(name) {
     la hora de su creación. */
 
 /********* OCULTAR INVITADOS (CHECKBOX) ***********/
+
+document.getElementById("confirm").onclick = function() {
+   
+    let li = document.getElementsByClassName("responded");
+    let element = document.querySelector("responded");
+    console.log(element);
+
+    if(this.checked){
+        element.style.display = "none";
+    }
+
+    /*
+    let lista = document.getElementById("invitedList");
+    let confirmados = lista.getElementsByClassName("responded");
+   
+    if(this.checked) {
+
+        for (let i = 0 ; confirmados; i++){
+            confirmados.item(i).setAttribute("style", "display: none;");
+        }
+    } else {
+
+        for (let i = 0 ; confirmados; i++){
+            confirmados.item(i).setAttribute("style", "display: block;");
+    }
+}*/
+}
