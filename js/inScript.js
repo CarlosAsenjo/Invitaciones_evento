@@ -42,8 +42,6 @@ function names(n) {
 
 
 /********* COMPRUEBA INVITADO DUPLICADO ***********/
-//TRABAJAR EN ESTA FUNCION
-
 function changeName(n1, n2) {
 
     for (let i = 0; i < guest.length; i++) {
@@ -83,7 +81,7 @@ function create(name) {
     newLi.appendChild(newSpan);
 
     // INPUT
-    var newInput = document.createElement("input");;
+    var newInput = document.createElement("input");
     newInput.type = "text";
     newInput.textContent = "";
     newLi.appendChild(newInput);
@@ -114,19 +112,15 @@ function create(name) {
     newEdit.onclick = function() {
         console.log("entra en editar")
         newSpan.style.display = "none";
-        newInput.style.display = "block"
-        newEdit.textContent = "Ok!"
+        newInput.style.display = "block";
+        newEdit.textContent = "Ok!";
         newEdit.style.backgroundColor = "rgb(102, 237, 138)";
         //CONFIRMAR CAMBIO
         if (newEdit.onclick) {
             var nameInput = upperFirst(newInput.value);
             console.log("valor input: " + nameInput)
-            console.log(newSpan.textContent)
-            if (names(nameInput) == false) {
-
-                alert("Nombre duplicado")
-
-            } else {
+            console.log(newSpan.textContent);
+            if (names(nameInput) == true) {
                 //Reemplazar nombre span en el array por el de input
                 delGuest(newSpan.textContent);
                 guest.push(nameInput);
@@ -151,7 +145,7 @@ function create(name) {
             newRemove.parentElement.remove();
             delGuest(newSpan.textContent);
         }
-        newRemove.style.backgroundColor = "red"
+        newRemove.style.backgroundColor = "red";
         newRemove.textContent = "CONFIRM";
         let newCross = document.createElement("button");
         newCross.textContent = "x";
@@ -167,38 +161,24 @@ function create(name) {
     document.getElementById("invitedList").appendChild(newLi);
 }
 
-/* cuando creas un nuevo boton, tiene que tener un padre
-    y tienes que referirte a ese padre cuando metas el remove.
-    Para eso, necesitas que un <li> contenga un <span> un <label>
-    y dos <button>. Estos tienen como padre al <li> que has creado.
-    y para referirte a ellos, tienes que meter listeners en todos a
-    la hora de su creación. */
-
 /********* OCULTAR INVITADOS (CHECKBOX) ***********/
-
 document.getElementById("confirm").onclick = function() {
-   
-    let li = document.getElementsByClassName("responded");
-    let element = document.querySelector("responded");
-    console.log(element);
 
-    if(this.checked){
-        element.style.display = "none";
-    }
+    var hide = false;
+    var li = document.getElementsByTagName("li");
 
-    /*
-    let lista = document.getElementById("invitedList");
-    let confirmados = lista.getElementsByClassName("responded");
-   
-    if(this.checked) {
-
-        for (let i = 0 ; confirmados; i++){
-            confirmados.item(i).setAttribute("style", "display: none;");
+    if (document.getElementById("confirm").checked) {
+        for (let c = 0; c < li.length; c++) {
+            var x = li[c].getElementsByTagName("label")[0].getElementsByTagName("input");
+            if (!x[0].checked) {
+                li[c].style.display = 'none';
+                hide = true;
+            }
         }
     } else {
-
-        for (let i = 0 ; confirmados; i++){
-            confirmados.item(i).setAttribute("style", "display: block;");
+        for (let c = 0; c < li.length; c++) {
+            li[c].style.display = 'block';
+            hide = false;
+        }
     }
-}*/
 }
