@@ -5,7 +5,7 @@ document.getElementById("submit").addEventListener("click", function() {
     event.preventDefault();
 
     console.log("event");
-    var name = document.getElementById("name").value;
+    var name = document.getElementById("name").value ;
     name = upperFirst(name);
 
     if (names(name)) {
@@ -55,6 +55,7 @@ function changeName(n1, n2) {
     }
 }
 
+
 /********* ELIMINA INVITADO DEL ARRAY ***********/
 function delGuest(name) {
 
@@ -65,6 +66,7 @@ function delGuest(name) {
         }
     }
 }
+
 
 /********* CREA LA INVITACION ***********/
 function create(name) {
@@ -105,6 +107,7 @@ function create(name) {
     newLabel.appendChild(newCheck);
     newLi.appendChild(newLabel);
 
+
     /********* BOTON EDITAR ***********/ //TRABAJAR EN ESTA FUNCION
     var newEdit = document.createElement("button");
     newEdit.textContent = "edit";
@@ -117,7 +120,7 @@ function create(name) {
         newEdit.style.backgroundColor = "rgb(102, 237, 138)";
         //CONFIRMAR CAMBIO
         if (newEdit.onclick) {
-            var nameInput = upperFirst(newInput.value);
+            var nameInput = upperFirst(newInput.value.trim());
             console.log("valor input: " + nameInput)
             console.log(newSpan.textContent);
             if (names(nameInput) == true) {
@@ -131,10 +134,13 @@ function create(name) {
                 newEdit.style.backgroundColor = "rgba(88, 183, 205, .5)";
                 newEdit.textContent = "edit";
                 console.log(guest);
+            } else {
+                alert("introduce un nombre")
             }
         }
     }
     newLi.appendChild(newEdit);
+
 
     /********* BOTON ELIMINAR ***********/
     var newRemove = document.createElement("button");
@@ -160,6 +166,7 @@ function create(name) {
     newLi.appendChild(newRemove);
     document.getElementById("invitedList").appendChild(newLi);
 }
+
 
 /********* OCULTAR INVITADOS (CHECKBOX) ***********/
 document.getElementById("confirm").onclick = function() {
